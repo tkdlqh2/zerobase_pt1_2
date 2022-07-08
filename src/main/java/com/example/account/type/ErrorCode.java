@@ -1,4 +1,4 @@
-package type;
+package com.example.account.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

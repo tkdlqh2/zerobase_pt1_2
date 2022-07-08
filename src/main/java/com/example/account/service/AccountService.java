@@ -8,13 +8,13 @@ import com.example.account.repository.AccountRepository;
 import com.example.account.repository.AccountUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import type.ErrorCode;
+import com.example.account.type.ErrorCode;
 
 import javax.transaction.Transactional;
 
 import java.time.LocalDateTime;
 
-import static type.AccountStatus.IN_USE;
+import static com.example.account.type.AccountStatus.IN_USE;
 
 @Service
 @RequiredArgsConstructor
