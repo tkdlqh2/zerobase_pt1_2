@@ -21,6 +21,8 @@ public class Account {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    private AccountUser accountUser;
     private String accountNumber;
 
     @Enumerated(EnumType.STRING)

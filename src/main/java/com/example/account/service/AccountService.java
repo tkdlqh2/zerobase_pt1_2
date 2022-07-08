@@ -7,9 +7,14 @@ import com.example.account.repository.AccountRepository;
 import com.example.account.repository.AccountUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import type.AccountStatus;
 import type.ErrorCode;
 
 import javax.transaction.Transactional;
+
+import java.time.LocalDateTime;
+
+import static type.AccountStatus.IN_USE;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +37,16 @@ public class AccountService {
         String newAccountNumber = accountRepository.findFirstByOrderByIdDesc()
                 .map(account -> (Integer.parseInt(account.getAccountNumber())+1 + ""))
                 .orElse("10000000000");
+
+        accountRepository.save(
+                Account.builder()
+                        .accountUser(accountUser)
+                        .accountStatus(IN_USE)
+                        .accountNumber(newAccountNumber)
+                        .balance(initialBalance)
+                        .registeredAt(LocalDateTime.now())
+                        .build()
+        );
     }
 
     @Transactional
