@@ -22,15 +22,7 @@ public class AccountUser {
     @GeneratedValue
     private Long id;
 
-
-    private String accountNumber;
-
-    @Enumerated(EnumType.STRING)
-    private AccountStatus accountStatus;
-    private Long balance;
-
-    private LocalDateTime registeredAt;
-    private LocalDateTime unRegisteredAt;
+    private String name;
 
     @CreatedDate
     private LocalDateTime createdAt;
