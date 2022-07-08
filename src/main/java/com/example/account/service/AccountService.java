@@ -1,11 +1,12 @@
 package com.example.account.service;
 
 import com.example.account.domain.Account;
-import com.example.account.domain.AccountStatus;
+import com.example.account.exception.AccountException;
 import com.example.account.repository.AccountRepository;
 import com.example.account.repository.AccountUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import type.ErrorCode;
 
 import javax.transaction.Transactional;
 
@@ -25,7 +26,7 @@ public class AccountService {
     @Transactional
     public void createAccount(Long userId, Long initialBalance) {
         accountUserRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User Not Found."));
+                .orElseThrow(()->new AccountException(ErrorCode.USER_NOT_FOUND));
     }
 
     @Transactional
