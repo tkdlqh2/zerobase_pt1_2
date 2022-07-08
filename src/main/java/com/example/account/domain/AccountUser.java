@@ -15,11 +15,14 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Account {
+public class AccountUser {
+
     @Id
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    private AccountUser accountUser;
     private String accountNumber;
 
     @Enumerated(EnumType.STRING)
