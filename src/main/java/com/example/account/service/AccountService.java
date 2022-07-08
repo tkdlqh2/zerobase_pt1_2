@@ -2,12 +2,12 @@ package com.example.account.service;
 
 import com.example.account.domain.Account;
 import com.example.account.domain.AccountUser;
+import com.example.account.dto.AccountDto;
 import com.example.account.exception.AccountException;
 import com.example.account.repository.AccountRepository;
 import com.example.account.repository.AccountUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import type.AccountStatus;
 import type.ErrorCode;
 
 import javax.transaction.Transactional;
@@ -28,9 +28,10 @@ public class AccountService {
      * 계좌를 저장하고, 그 정보를 넘긴다.
      * @param userId 유저의 id
      * @param initialBalance 초기 넣어주는 금액
+     * @return accountDto를 반환합니다.
      */
     @Transactional
-    public void createAccount(Long userId, Long initialBalance) {
+    public AccountDto createAccount(Long userId, Long initialBalance) {
         AccountUser accountUser = accountUserRepository.findById(userId)
                 .orElseThrow(()->new AccountException(ErrorCode.USER_NOT_FOUND));
 
@@ -38,7 +39,7 @@ public class AccountService {
                 .map(account -> (Integer.parseInt(account.getAccountNumber())+1 + ""))
                 .orElse("10000000000");
 
-        accountRepository.save(
+        Account account = accountRepository.save(
                 Account.builder()
                         .accountUser(accountUser)
                         .accountStatus(IN_USE)
@@ -47,6 +48,8 @@ public class AccountService {
                         .registeredAt(LocalDateTime.now())
                         .build()
         );
+        return AccountDto.fromEntity(account);
+
     }
 
     @Transactional
