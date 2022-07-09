@@ -3,6 +3,7 @@ package com.example.account.controller;
 import com.example.account.domain.Account;
 import com.example.account.dto.AccountDto;
 import com.example.account.dto.CreateAccount;
+import com.example.account.dto.DeleteAccount;
 import com.example.account.service.AccountService;
 import com.example.account.service.RedisTestService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,17 @@ public class AccountController {
                 request.getInitialBalance()
         );
         return CreateAccount.Response.from(accountDto);
+    }
+
+    @DeleteMapping ("/account")
+    public DeleteAccount.Response deleteAccount(
+            @RequestBody @Valid DeleteAccount.Request request
+    ) {
+        AccountDto accountDto =  accountService.deleteAccount(
+                request.getUserId(),
+                request.getAccountNumber()
+        );
+        return DeleteAccount.Response.from(accountDto);
     }
 
     @GetMapping("/get-lock")

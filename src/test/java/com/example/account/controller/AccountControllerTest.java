@@ -70,7 +70,7 @@ class AccountControllerTest {
         //given
         given(accountService.getAccount(anyLong()))
                 .willReturn(Account.builder()
-                        .accountNumber("3456")
+                        .accountNumber("3456789012")
                         .accountStatus(AccountStatus.IN_USE)
                         .build());
 
@@ -78,7 +78,7 @@ class AccountControllerTest {
         //then
         mockMvc.perform(get("/account/876"))
                 .andDo(print())
-                .andExpect(jsonPath("$.accountNumber").value("3456"))
+                .andExpect(jsonPath("$.accountNumber").value("3456789012"))
                 .andExpect(jsonPath("$.accountStatus").value("IN_USE"))
                 .andExpect(status().isOk());
     }
