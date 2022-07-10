@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 public class CancelBalance {
     @Getter
     @Setter
+    @NoArgsConstructor
     @AllArgsConstructor
+    @Builder
     public static class Request{
         @NotBlank
         private String transactionId;
