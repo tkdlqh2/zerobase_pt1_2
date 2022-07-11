@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(e.getErrorCode(),e.getErrorMessage());
     }
 
-    @ExceptionHandler(AccountException.class)
+    @ExceptionHandler(DataIntegrityViolationException.class)
     public ErrorResponse handleDataIntegrityViolationException(
             DataIntegrityViolationException e
     ){
