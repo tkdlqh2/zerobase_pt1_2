@@ -93,12 +93,15 @@ class AccountControllerTest {
         List<AccountDto> accountDtos=
                 Arrays.asList(
                         AccountDto.builder()
+                                .userId(1L)
                                 .accountNumber("1234567890")
                                 .balance(1000L).build(),
                         AccountDto.builder()
+                                .userId(1L)
                                 .accountNumber("111111111")
                                 .balance(2000L).build(),
                         AccountDto.builder()
+                                .userId(1L)
                                 .accountNumber("333333333")
                                 .balance(3000L).build()
                 );
