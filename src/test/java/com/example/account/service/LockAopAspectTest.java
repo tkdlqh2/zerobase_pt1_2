@@ -37,6 +37,28 @@ class LockAopAspectTest {
                 ArgumentCaptor.forClass(String.class);
         UseBalance.Request request =
                 new UseBalance.Request(123L,"1234",1000L);
+
+        //when
+        lockAopAspect.aroundMethod(proceedingJoinPoint,request);
+        //then
+        verify(lockService,times(1))
+                .lock(lockArgumentCaptor.capture());
+        verify(lockService,times(1))
+                .unlock(unLockArgumentCaptor.capture());
+        assertEquals("1234",lockArgumentCaptor.getValue());
+        assertEquals("1234",unLockArgumentCaptor.getValue());
+
+    }
+
+    @Test
+    void lockAndUnlock_evenIfThrow() throws Throwable{
+        //given
+        ArgumentCaptor<String> lockArgumentCaptor =
+                ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> unLockArgumentCaptor =
+                ArgumentCaptor.forClass(String.class);
+        UseBalance.Request request =
+                new UseBalance.Request(123L,"1234",1000L);
         given(proceedingJoinPoint.proceed())
                 .willThrow(new AccountException(ErrorCode.ACCOUNT_NOT_FOUND));
 
