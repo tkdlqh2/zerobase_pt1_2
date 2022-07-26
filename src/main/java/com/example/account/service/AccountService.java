@@ -44,10 +44,10 @@ public class AccountService {
                 .orElseThrow(()->new AccountException(USER_NOT_FOUND));
 
         validateCreateAccount(accountUser);
-
+        int randomVal = (int)(Math.random()*1000000000);
         String newAccountNumber = accountRepository.findFirstByOrderByIdDesc()
                 .map(account -> (Integer.parseInt(account.getAccountNumber())+1 + ""))
-                .orElse("1000000000");
+                .orElse(String.format("%10d",randomVal));
 
         Account account = accountRepository.save(
                 Account.builder()
